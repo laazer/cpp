@@ -1,7 +1,7 @@
 all: fizzbuzz
 
 fizzbuzz: fizzbuzz.cpp
-	g++ fizzbuzz.cpp -o fizzbuzz
+	g++ scrap.cpp -o scrap
 
 clean:
-	rm -f fizzbuzz
+	rm -f scrap
