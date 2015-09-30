@@ -1,6 +1,6 @@
-all: fizzbuzz
+all: scrap
 
-fizzbuzz: fizzbuzz.cpp
+scrap: scrap.cpp
 	g++ scrap.cpp -o scrap
 
 clean:

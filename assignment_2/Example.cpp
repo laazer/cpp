@@ -1,5 +1,5 @@
 /*
- * Explanation goes here.
+ * Both the C++ program and the java program return the same output
  */
 
 // example C++ program
