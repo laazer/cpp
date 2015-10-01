@@ -33,7 +33,8 @@ char ** splitString(const char words[], int w_cnt) {
             if(addWord) {
                 string tmp = s.substr(j, i);
                 //+ 1 for null char
-                result[index] = new char(tmp.length() + 1);
+                char * pt = new char(tmp.length() + 1);
+                result[index] = pt;
                 strcpy(result[index], tmp.c_str());
                 index++;
                 addWord = false;
