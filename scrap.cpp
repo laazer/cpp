@@ -31,7 +31,7 @@ char ** splitString(const char words[], char ** buff) {
     for(int i = 0; i < s.length(); i++) {
         if(s[i] == ' ') {
             if(addWord) {
-                string tmp = s.substr(j, i);
+                string tmp = s.substr(j, i - j);
                 //+ 1 for null char
                 char * pt = new char(tmp.length() + 1);
                 *pt_result = pt;
