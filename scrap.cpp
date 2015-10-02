@@ -25,18 +25,18 @@ string repeat()
 char ** splitString(const char words[], int w_cnt) {
     string s = words;
     char * result[w_cnt];
+    char ** pt_result = result;
     int index, j = 0;
     bool addWord = false;
     for(int i = 0; i < s.length(); i++) {
         if(s[i] == ' ') {
-            cout << "found space" << endl;
             if(addWord) {
                 string tmp = s.substr(j, i);
                 //+ 1 for null char
                 char * pt = new char(tmp.length() + 1);
-                result[index] = pt;
-                strcpy(result[index], tmp.c_str());
-                index++;
+                *pt_result = pt;
+                strcpy(*pt_result, tmp.c_str());
+                pt_result++;
                 addWord = false;
             }
             j = i + 1;
