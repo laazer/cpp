@@ -28,7 +28,7 @@ char ** splitString(const char words[], char ** buff) {
     char ** pt_result = buff;
     int index, j = 0;
     bool addWord = false;
-    for(int i = 0; i < s.length(); i++) {
+    for(int i = 0; i <= s.length(); i++) {
         if(s[i] == ' ') {
             if(addWord) {
                 string tmp = s.substr(j, i - j);
