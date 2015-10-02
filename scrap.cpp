@@ -22,10 +22,10 @@ string repeat()
     return s;
 }
 
-char ** splitString(const char words[], int w_cnt) {
+char ** splitString(const char words[], char ** buff) {
     string s = words;
-    char * result[w_cnt];
-    char ** pt_result = result;
+    //char * result[w_cnt];
+    char ** pt_result = buff;
     int index, j = 0;
     bool addWord = false;
     for(int i = 0; i < s.length(); i++) {
@@ -45,7 +45,7 @@ char ** splitString(const char words[], int w_cnt) {
             addWord = true;   
         }
     }
-    char ** res = result;
+    char ** res = buff;
     return res;
 }
 
@@ -112,7 +112,9 @@ int main()
     char * list[] = {"abc", "i", "djaksdj", "sdsakdjasadasd", "hhjh"};
     const char test[] = "abc def jkjk lmnop";
     string stest = test;
-    print_array(splitString(test, 4), 4);
+    char ** tbuff;
+    splitString(test, tbuff);
+    print_array(tbuff, 4);
     //cout << cntSpace(stest) << endl;
     cout << "True " << true << " False " << false << endl;
     cout << repeat() << endl;
