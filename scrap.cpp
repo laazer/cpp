@@ -112,9 +112,8 @@ int main()
     char * list[] = {"abc", "i", "djaksdj", "sdsakdjasadasd", "hhjh"};
     const char test[] = "abc def jkjk lmnop";
     string stest = test;
-    char ** tbuff;
-    splitString(test, tbuff);
-    print_array(tbuff, 4);
+    char * tbuff[100];
+    print_array(splitString(test, tbuff), 4);
     //cout << cntSpace(stest) << endl;
     cout << "True " << true << " False " << false << endl;
     cout << repeat() << endl;
