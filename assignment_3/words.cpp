@@ -17,7 +17,7 @@ char ** splitString(const char words[], char ** buff);
  * combinds the lists of strings in the given words and puts them into
  * the given buffer
  */
-int combindList(Words * w1, Words * w2, char ** buff);
+int combindList(Words * w1, const Words * w2, char ** buff);
 
 char ** splitString(const char words[], char ** buff) {
     string s = words;
@@ -63,14 +63,14 @@ int combindList(Words * w1, Words * w2, char ** buff) {
         char * pt = new char(s.length() + 1);
         *pt_buff = pt;
         strcpy(*pt_buff, s.c_str());
-        pt_buff++
+        pt_buff++;
     }
     for(int j = 0; j < w2->num_words; j++) {
         string s = w2->list[j];
         char * pt = new char(s.length() + 1);
         *pt_buff = pt;
         strcpy(*pt_buff, s.c_str());
-        pt_buff++
+        pt_buff++;
     }
     return 0;
 }
@@ -87,10 +87,9 @@ newList(const unsigned int max_words)
     return my_words;
 }
 
-Words *
-newList(const char words[])
+Words * newList(const char words[])
 {
-    if(!sizeof(words)) {
+    if(strcmp(words, "") == 0 || words == NULL) {
         return NULL;
     }
     string s = words;
@@ -129,10 +128,9 @@ printList(Words *p_w)
     return 0;
 }
 
-int
-appendList(Words *p_w, const char words[])
+int appendList(Words *p_w, const char words[])
 {
-    if(p_w == NULL || size(words) == 0)
+    if(p_w == NULL || strcmp(words, "") == 0 || words == NULL)
     {
         return -1;
     }
@@ -148,8 +146,7 @@ appendList(Words *p_w, const char words[])
     return wsize;
 }
 
-int
-appendList(Words *dst, const Words *src)
+int appendList(Words *dst, const Words *src)
 {
     if(dst == NULL || src == NULL)
     {
@@ -164,10 +161,9 @@ appendList(Words *dst, const Words *src)
     return res;
 }
 
-const char *
-findWord(const Words *p_w, const char word[])
+const char * findWord(const Words *p_w, const char word[])
 {
-    if(p_w == NULL || size(words) == 0)
+    if(p_w == NULL || strcmp(word, "") == 0 || word == NULL)
     {
         return NULL;
     }
@@ -187,9 +183,10 @@ removeWord(Words *p_w, const char word[])
     if(p_w == NULL) {
         return -1;    
     }
+    char ** clist = p_w->list;
     bool mvup = false;
     int cnt = 0;
-    for(int i = 0; i < l_size; i++) {
+    for(int i = 0; i < p_w->num_words; i++) {
         if(mvup) {
             clist = ++clist;
         }
@@ -202,5 +199,6 @@ removeWord(Words *p_w, const char word[])
             cnt++;
         }
     }
+    p_w->num_words = p_w->num_words - cnt;
     return cnt;
 }
