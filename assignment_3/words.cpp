@@ -84,6 +84,8 @@ newList(const unsigned int max_words)
     Words * my_words = new Words;
     my_words->max_words = max_words;
     my_words->num_words = 0;
+    char * list[10];
+    my_words->list = list;
     return my_words;
 }
 
