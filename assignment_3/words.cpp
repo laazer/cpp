@@ -24,10 +24,13 @@ char ** splitString(const char words[], char ** buff) {
     char ** pt_result = buff;
     int index, j = 0;
     bool addWord = false;
+    int endc = 0;
     for(int i = 0; i < s.length(); i++) {
         if(s[i] == ' ' || (i + 1) == s.length()) {
+            if ((i + 1) == s.length())
+              endc = 1;
             if(addWord) {
-                string tmp = s.substr(j, i - j);
+                string tmp = s.substr(j, i - j + endc);
                 //+ 1 for null char
                 char * pt = new char(tmp.length() + 1);
                 *pt_result = pt;
@@ -84,7 +87,7 @@ newList(const unsigned int max_words)
     Words * my_words = new Words;
     my_words->max_words = max_words;
     my_words->num_words = 0;
-    char * list[10];
+    char ** list = new char *[max_words];
     my_words->list = list;
     return my_words;
 }
@@ -97,7 +100,7 @@ Words * newList(const char words[])
     string s = words;
     int num_words = cntSpace(s) + 1;
     Words * my_words = new Words;
-    char * wbuff[num_words];
+    char ** wbuff = new char *[num_words];
     my_words->list = splitString(words, wbuff);
     my_words->num_words = num_words;
     my_words->max_words = num_words;
@@ -113,6 +116,7 @@ deleteList(Words *p_w)
     for(int i = 0; i < p_w->num_words; i++) {
         delete p_w->list[i];   
     }
+    delete p_w->list;
     delete p_w;
     return 0;
 }
@@ -137,16 +141,16 @@ int appendList(Words *p_w, const char words[])
     }
     int wsize = cntSpace(words) + 1;
     int tsize = max(p_w->max_words, wsize + p_w->num_words);
-    char * wbuff[tsize];
     Words * tmp_word = newList(words);
     if(p_w->num_words == 0)
     {
-      Words * tmp_pt = p_w;
-      p_w = tmp_word;
       p_w->max_words = tsize;
-      deleteList(tmp_pt);
+      delete[] p_w->list;
+      p_w->list = tmp_word->list;
+      p_w->num_words = tmp_word->num_words;
     }
     else {
+      char ** wbuff = new char *[tsize];
       p_w->max_words = tsize;
       combindList(p_w, tmp_word, wbuff);
       p_w->num_words = p_w->num_words + wsize;
@@ -163,7 +167,7 @@ int appendList(Words *dst, const Words *src)
         return -1;
     }
     int tsize = max(dst->max_words, dst->num_words + src->num_words);
-    char * wbuff[tsize];
+    char ** wbuff = new char *[tsize];
     dst->max_words = tsize;
     int res = combindList(dst, src, wbuff);
     dst->num_words = dst->num_words + src->num_words;
@@ -193,48 +197,23 @@ removeWord(Words *p_w, const char word[])
     if(p_w == NULL) {
         return -1;    
     }
-    char ** clist = p_w->list;
-    bool mvup = false;
+    char ** clist = new char *[p_w->num_words];
     int cnt = 0;
+    int idx = 0;
     for(int i = 0; i < p_w->num_words; i++) {
-        if(mvup) {
-            clist = ++clist;
-        }
-        if(strcmp(clist[i], word) == 0) {
-            char * tmp = clist[i];
-            clist = ++clist;
-            mvup = true;
-            delete tmp;
-            tmp = NULL;
+        if(strcmp(p_w->list[i], word) == 0) {
+            delete p_w->list[i];
             cnt++;
         }
+        else {
+          clist[idx] = p_w->list[i];
+          idx++;
+        }
     }
+    delete p_w->list;
+    int numw = p_w->num_words - cnt;
+    //realloc(clist, numw * sizeof(char*));
+    p_w->list = clist;
     p_w->num_words = p_w->num_words - cnt;
     return cnt;
-}
-
-//TODO remember to remove
-int
-main()
-{
-  Words * w1 = newList(10);
-  appendList(w1, "caterpie raichu butterfree");
-  printList(w1); // caterpie raichu butterfree
-
-  Words * w2 = newList("charmeleon mewtwo pikachu charmander");
-  printList(w2); // charmeleon mewtwo pikachu charmander
-
-  appendList(w2, w1);
-  printList(w2); // charmeleon mewtwo pikachu charmander caterpie raichu butterfree
-
-  appendList(w2, "abra");
-  printList(w2); // charmeleon mewtwo pikachu charmander caterpie raichu butterfree abra
-
-  removeWord(w2, "charmeleon");
-  printList(w2); // mewtwo pikachu charmander caterpie raichu butterfree abra
-
-  deleteList(w1);
-  deleteList(w2);
-
-  return 0;
 }
