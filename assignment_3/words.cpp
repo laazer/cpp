@@ -113,7 +113,6 @@ deleteList(Words *p_w)
     for(int i = 0; i < p_w->num_words; i++) {
         delete p_w->list[i];   
     }
-    delete p_w->list;
     delete p_w;
     return 0;
 }
@@ -139,12 +138,21 @@ int appendList(Words *p_w, const char words[])
     int wsize = cntSpace(words) + 1;
     int tsize = max(p_w->max_words, wsize + p_w->num_words);
     char * wbuff[tsize];
-    Words * tmpWord = newList(words);
-    p_w->max_words = tsize;
-    combindList(p_w, tmpWord, wbuff);
-    p_w->num_words = p_w->num_words + wsize;
-    p_w->list = wbuff;
-    delete tmpWord;
+    Words * tmp_word = newList(words);
+    if(p_w->num_words == 0)
+    {
+      Words * tmp_pt = p_w;
+      p_w = tmp_word;
+      p_w->max_words = tsize;
+      deleteList(tmp_pt);
+    }
+    else {
+      p_w->max_words = tsize;
+      combindList(p_w, tmp_word, wbuff);
+      p_w->num_words = p_w->num_words + wsize;
+      p_w->list = wbuff;
+      deleteList(tmp_word);
+    }
     return wsize;
 }
 
