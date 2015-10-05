@@ -140,9 +140,9 @@ int appendList(Words *p_w, const char words[])
     int tsize = max(p_w->max_words, wsize + p_w->num_words);
     char * wbuff[tsize];
     Words * tmpWord = newList(words);
+    p_w->max_words = tsize;
     combindList(p_w, tmpWord, wbuff);
     p_w->num_words = p_w->num_words + wsize;
-    p_w->max_words = tsize;
     p_w->list = wbuff;
     delete tmpWord;
     return wsize;
@@ -156,9 +156,9 @@ int appendList(Words *dst, const Words *src)
     }
     int tsize = max(dst->max_words, dst->num_words + src->num_words);
     char * wbuff[tsize];
+    dst->max_words = tsize;
     int res = combindList(dst, src, wbuff);
     dst->num_words = dst->num_words + src->num_words;
-    dst->max_words = tsize;
     dst->list = wbuff;
     return res;
 }
