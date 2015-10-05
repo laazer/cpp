@@ -56,7 +56,7 @@ int cntSpace(string s) {
     return x;
 }
 
-int combindList(Words * w1, Words * w2, char ** buff) {
+int combindList(Words * w1, const Words * w2, char ** buff) {
     char ** pt_buff = buff;
     for(int i = 0; i < w1->num_words; i++) {
         string s = w1->list[i];
