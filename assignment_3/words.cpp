@@ -22,7 +22,7 @@ int combindList(Words * w1, const Words * w2, char ** buff);
 char ** splitString(const char words[], char ** buff) {
     string s = words;
     char ** pt_result = buff;
-    int index, j = 0;
+    int j = 0;
     bool addWord = false;
     int endc = 0;
     for(int i = 0; i < s.length(); i++) {
@@ -212,8 +212,9 @@ removeWord(Words *p_w, const char word[])
     }
     delete p_w->list;
     int numw = p_w->num_words - cnt;
+    //dont realloc because max_words is unchanged
     //realloc(clist, numw * sizeof(char*));
     p_w->list = clist;
-    p_w->num_words = p_w->num_words - cnt;
+    p_w->num_words = numw;
     return cnt;
 }
