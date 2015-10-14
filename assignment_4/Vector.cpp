@@ -17,6 +17,9 @@
     void & operator~();
     void & operator+=(const Vector& v);
     void & operator *=(const Vector& v);
+    Vector operator -(Vector& v);
+    Vector operator -=(Vector& v);
+    Vector operator /=(Vector& v);
 */
 
 Vector::Vector() 
@@ -35,16 +38,6 @@ Vector::Vector(const Vector& v)
 {
     m_x = v.m_x;
     m_y = v.m_y;
-}
-
-const double Vector::getX() 
-{
-    return m_x;
-}
-
-const double Vector::getY() 
- {
-    return m_y;
 }
 
 void Vector::setX(double d)
@@ -69,29 +62,92 @@ double Vector::operator[](int i)
         return m_y;
     }
 }
-   
-/*
-ostream Vector::operator<<(ostream& output)
-{
-    return output << m_x << " " << m_y;
+
+Vector& Vector::operator-() {
+    this->m_x = -this->m_x;
+    this->m_y = -this->m_y;
+    return *this;
 }
-*/
-bool Vector::operator==(const Vector& v1, const Vector& v2)
-{
+
+bool operator==(const Vector & v1, const Vector & v2) {
     return v1.m_x == v2.m_x && v1.m_y == v2.m_y;
 }
 
-bool Vector::operator!=(const Vector& v1, const Vector& v2)
-{
+bool operator!=(const Vector & v1, const Vector & v2) {
     return !(v1 == v2);
 }
 
+ Vector& Vector::operator=(const Vector& v) {
+    if (this != &v) {
+        this->m_x = v.m_x;
+        this->m_y = v.m_y;
+    }
+    return *this;
+ }
+
+
+Vector& Vector::operator+=(const Vector& v)
+{
+    this->m_x += v.getX();
+    this->m_y += v.getY();
+    return *this;
+}
+
+Vector& Vector::operator-=(const Vector& v)
+{
+    this->m_x -= v.getX();
+    this->m_y -= v.getY();
+    return *this;
+}
+
+Vector& Vector::operator*=(const Vector& v)
+{
+    this->m_x *= v.getX();
+    this->m_y *= v.getY();
+    return *this;
+}
+
+Vector& Vector::operator/=(const Vector& v)
+{
+    this->m_x /= v.getX();
+    this->m_y /= v.getY();
+    return *this;
+}
+
+
+Vector operator +(const Vector& v1, const Vector& v2) {
+    return Vector(v1.getX() + v2.getX(), v1.getY() + v2.getY());
+}
+
+Vector operator -(const Vector& v1, const Vector& v2) {
+    return Vector(v1.getX() - v2.getX(), v1.getY() - v2.getY());
+}
+                  
+Vector operator *(const Vector& v1, const Vector& v2) {
+    return Vector(v1.getX() * v2.getX(), v1.getY() * v2.getY());
+}                
+
+Vector operator /(const Vector& v1, const Vector& v2) {
+    return Vector(v1.getX() / v2.getX(), v1.getY() / v2.getY());
+}
+
+ostream& operator <<(ostream& output, const Vector& v) {
+    output << v.getX() << " " << v.getY();
+    return output;  
+}
+                  
 int main() 
 {
     Vector v1; // initialized to zero
     Vector v2(1.0, 2.0); // element-wize initialized
     Vector v3(v2); // copy constructor
+    Vector v4(5.0, 4.0);
     cout << v2.getX() << endl;
     cout << v2[1] << endl;
-    //cout  << v2 << endl;
+    cout << (v2 == v3 == false) << endl;
+    cout << (v2 == v4) << endl;
+    v2 = v4;
+    cout << (v2 == v4) << endl;
+    Vector v5 = v2 + v3;
+    cout << (v2) << endl;
 }

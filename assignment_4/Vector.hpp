@@ -28,19 +28,26 @@ public:
     Vector();
     Vector(double d1, double d2);
     Vector(const Vector& v);
-    const double getX();
-    const double getY();
+    double getX() const { return m_x; }
+    double getY() const { return m_y; }
     void setY(double d);
     void setX(double d);
+    /* unary op */
     double operator[](int i);
-    friend ostream operator<<(ostream& output, const Vector& v);
-    Vector &operator=(Vector& v);
+    Vector& operator-();
+    /* binary op */
+    Vector& operator=(const Vector& v);
     friend bool operator==(const Vector& v1, const Vector& v2);
     friend bool operator!=(const Vector& v1, const Vector& v2);
-    Vector &operator-();
-    Vector &operator+=(Vector& v);
-    Vector &operator *=(Vector& v);
-    
+    friend Vector operator +(const Vector& v1, const Vector& v2);
+    friend Vector operator -(const Vector& v1, const Vector& v2);
+    friend Vector operator *(const Vector& v1, const Vector& v2);
+    friend Vector operator /(const Vector& v1, const Vector& v2);
+    Vector& operator+=(const Vector& v);
+    Vector& operator *=(const Vector& v);
+    Vector& operator -=(const Vector& v);
+    Vector& operator /=(const Vector& v);
+    friend ostream& operator <<(ostream& output, const Vector& v);
 
 private:
   double m_x;
