@@ -12,9 +12,12 @@
  * For Circle:
  *  o->display(os): should display "Circle(cx cy; radius)" (with actual member values)
  */
-class Circle /* TODO */ {
+class Circle: public IShape {
 public:
-  // TODO
+    Circle(double x, double y, double radius);
+    double getArea();
+    void translate(const Vector& v);
+    ostream& display(ostream& os);
 
 private:
   // TODO

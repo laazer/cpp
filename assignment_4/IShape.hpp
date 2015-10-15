@@ -17,7 +17,10 @@
  */
 class IShape {
 public:
-  // TODO
+    ostream& display(ostream& os);
+    double getArea();
+    void translate(const Vector& v);
+
 
 private:
   // TODO
