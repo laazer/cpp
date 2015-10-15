@@ -135,19 +135,3 @@ ostream& operator <<(ostream& output, const Vector& v) {
     output << v.getX() << " " << v.getY();
     return output;  
 }
-                  
-int main() 
-{
-    Vector v1; // initialized to zero
-    Vector v2(1.0, 2.0); // element-wize initialized
-    Vector v3(v2); // copy constructor
-    Vector v4(5.0, 4.0);
-    cout << v2.getX() << endl;
-    cout << v2[1] << endl;
-    cout << (v2 == v3 == false) << endl;
-    cout << (v2 == v4) << endl;
-    v2 = v4;
-    cout << (v2 == v4) << endl;
-    Vector v5 = v2 + v3;
-    cout << (v2) << endl;
-}

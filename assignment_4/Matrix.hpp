@@ -15,13 +15,17 @@
  */
 class Matrix {
 public:
-  // TODO
-
+    Matrix(double d1, double d2, double d3, double d4);
+    Matrix(const Matrix& m);
+    Matrix& operator=(const Matrix& m);
+    friend Vector operator *(const Matrix& m, const Vector& v);
+    //double getXX() const { return m_xx;}
+    
 private:
-  double m_xx;
-  double m_xy;
-  double m_yx;
-  double m_yy;
+    double m_xx;
+    double m_xy;
+    double m_yx;
+    double m_yy;
 };
 
 #endif
