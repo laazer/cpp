@@ -1,5 +1,5 @@
-HEADERS = Circle.hpp IShape.hpp Matrix.hpp Triangle.hpp Vector.hpp
-OBJECTS = Circle.o   IShape.o   Matrix.o   Triangle.o   Vector.o   main.o
+HEADERS = Vector.hpp Circle.hpp IShape.hpp Matrix.hpp Triangle.hpp
+OBJECTS = Vector.o   Circle.o   IShape.o   Matrix.o   Triangle.o   main.o
 
 .PHONY: all clean
 

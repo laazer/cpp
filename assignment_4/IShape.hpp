@@ -17,9 +17,11 @@
  */
 class IShape {
 public:
-    ostream& display(ostream& os);
-    double getArea();
-    void translate(const Vector& v);
+    IShape() {}
+    virtual ~IShape() {}
+    virtual ostream& display(ostream& os) const = 0;
+    virtual double getArea() const = 0;
+    virtual void translate(const Vector& v) const = 0;
 
 
 private:

@@ -14,10 +14,11 @@
  */
 class Circle: public IShape {
 public:
-    Circle(double x, double y, double radius);
-    double getArea();
-    void translate(const Vector& v);
-    ostream& display(ostream& os);
+    Circle(const Vector& v, double radius);
+    ~Circle() {}
+    double getArea() const;
+    void translate(const Vector& v) const;
+    ostream& display(ostream& os) const;
 
 private:
   // TODO

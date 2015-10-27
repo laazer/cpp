@@ -1,27 +1,6 @@
 #include "Vector.hpp"
 #include <cassert>
 
-/*
-    Vector();
-    Vector(int d1, int d2);
-    Vector(Vector v);
-    double getX();
-    double getY();
-    void setY(double d);
-    void setX(double d);
-    double & operator[](int i);
-    ostream & operator<<(ostream &output, const Vector &v);
-    Vector & operator=(const Vector& v);
-    bool & operator==(const Vector& v);
-    bool & operator!=(const Vector& v);
-    void & operator~();
-    void & operator+=(const Vector& v);
-    void & operator *=(const Vector& v);
-    Vector operator -(Vector& v);
-    Vector operator -=(Vector& v);
-    Vector operator /=(Vector& v);
-*/
-
 Vector::Vector() 
 {
     m_x = 0.0;
@@ -50,7 +29,7 @@ void Vector::setY(double d)
     m_y = d;   
 }
 
-double Vector::operator[](int i)
+double& Vector::operator[](int i)
 {
     assert(i >= 0 && i < 2);
     if(i == 0)
@@ -100,17 +79,18 @@ Vector& Vector::operator-=(const Vector& v)
     return *this;
 }
 
-Vector& Vector::operator*=(const Vector& v)
+Vector& Vector::operator*=(double d)
 {
-    this->m_x *= v.getX();
-    this->m_y *= v.getY();
+    this->m_x *= d;
+    this->m_y *= d;
     return *this;
 }
 
-Vector& Vector::operator/=(const Vector& v)
+Vector& Vector::operator/=(double d)
 {
-    this->m_x /= v.getX();
-    this->m_y /= v.getY();
+    assert(d != 0.0);
+    this->m_x /= d;
+    this->m_y /= d;
     return *this;
 }
 
@@ -123,12 +103,17 @@ Vector operator -(const Vector& v1, const Vector& v2) {
     return Vector(v1.getX() - v2.getX(), v1.getY() - v2.getY());
 }
                   
-Vector operator *(const Vector& v1, const Vector& v2) {
-    return Vector(v1.getX() * v2.getX(), v1.getY() * v2.getY());
-}                
+Vector operator *(const Vector& v, double d) {
+    return Vector(v.getX() * d, v.getY() * d);
+} 
 
-Vector operator /(const Vector& v1, const Vector& v2) {
-    return Vector(v1.getX() / v2.getX(), v1.getY() / v2.getY());
+Vector operator *(double d, const Vector& v) {
+    return v * d;
+}
+
+Vector operator /(const Vector& v1, double d) {
+    assert(d != 0.0);
+    return Vector(v1.getX() / d, v1.getY() / d);
 }
 
 ostream& operator <<(ostream& output, const Vector& v) {
