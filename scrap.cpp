@@ -71,6 +71,8 @@ int print_array(char ** words, int len) {
 int main() 
 {
     string s1 = "abcd";
+    string * s = &s1;
+    string * s2 = s;
     char * list[] = {"abc", "i", "djaksdj", "sdsakdjasadasd", "hhjh"};
     const char test[] = "abc def jkjk lmnop";
     string stest = test;
