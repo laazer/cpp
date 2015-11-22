@@ -46,27 +46,6 @@ struct SList_Iterator
     }
 };
 
-template< typename T >
-bool operator==(const SList_Iterator<T> & lhs, const SList_Iterator<T> & rhs)
-{
-    SList_Node<T> * pl = lhs.node;
-    SList_Node<T> * pr = rhs.node;
-    while(pl != NULL || pl != NULL) {
-        if(pl->data != pr->data) {
-            return false;
-        }
-        pl = pl->next;
-        pr = pr->next;
-    }
-    return pl == pr;
-}
-
-template< typename T >
-bool operator!=(const SList_Iterator<T> & lhs, const SList_Iterator<T> & rhs)
-{
-    return !(lhs == rhs);
-}
-
 // Utility struct for list const iterator.
 // Not intended for direct use outside SList.
 template< typename T >
@@ -95,9 +74,31 @@ struct SList_ConstIterator
 };
 
 template< typename T >
+bool operator==(const SList_Iterator<T> & lhs, const SList_Iterator<T> & rhs)
+{
+    return SList_ConstIterator<T>(lhs) == SList_ConstIterator<T>(rhs);
+    
+}
+
+template< typename T >
+bool operator!=(const SList_Iterator<T> & lhs, const SList_Iterator<T> & rhs)
+{
+    return !(lhs == rhs);
+}
+
+template< typename T >
 bool operator==(const SList_ConstIterator<T> & lhs, const SList_ConstIterator<T> & rhs)
 {   
-    return SList_Iterator<T>(lhs.node) == SList_Iterator<T>(rhs.iterator);
+    const SList_Node<T> * pl = lhs.node;
+    const SList_Node<T> * pr = rhs.node;
+    while(pl != NULL && pr != NULL) {
+        if(pl->data != pr->data) {
+            return false;
+        }
+        pl = pl->next;
+        pr = pr->next;
+    }
+    return pl == pr;
 }
 
 template< typename T >
@@ -110,7 +111,7 @@ bool operator!=(const SList_ConstIterator<T> & lhs, const SList_ConstIterator<T>
 template< typename T >
 bool operator==(const SList_Iterator<T> & lhs, const SList_ConstIterator<T> & rhs)
 {
-    return lhs == SList_Iterator<T>(rhs.node);
+    return SList_ConstIterator<T>(lhs) == rhs;
 }
 
 template< typename T >
@@ -206,15 +207,24 @@ class SList
         }
         iterator erase_after(iterator it)
         {
-            SList_Node<T> * next = it.node->next;
-            SList_Node<T> * next_next = next->next;
-            it.node->next = next_next;
-            delete next;
+            SList_Node<T> * next = NULL;
+            if (it.node != NULL) {
+                next = it.node->next;    
+            }
+            SList_Node<T> * next_next = NULL;
+            if (next != NULL) {
+                next_next = next->next;
+            }
+            it.node->next = next_next;  
             return SList_Iterator<T>(next_next);
         }
     private:
         void copy_from(const SList & o)
         {
+            if (o.m_head == NULL) {
+                m_head = NULL;
+                return;
+            }
             SList_Node<T> ** node_hlpr = &m_head;
             SList_Node<T> * o_node = o.m_head;
             while (o_node != NULL)

@@ -83,11 +83,7 @@ public:
         l2.push_front(3);
         SList_Iterator<int> li1b = l1.begin();
         SList_Iterator<int> li2b = l2.begin();
-//        for (SList_Iterator<int> it = l1.begin() ; it != l1.end(); ++it) {
-//            std::cout << ' ' << *it << ' ' << *li2b;
-//            li2b++;
-//        }       
-        //TS_ASSERT_EQUALS(l1.begin(), l1.begin());
+        TS_ASSERT_EQUALS(l1.begin(), l1.begin());
         l1.pop_front();
         TS_ASSERT_EQUALS(l1.front(), 2);
         l1.push_front(3);
@@ -97,7 +93,21 @@ public:
         TS_ASSERT_EQUALS(*li1b, 2);
         li1b++;
         TS_ASSERT_EQUALS(*li1b, 5);
-        
+        SList_Iterator<int> li4 = l1.erase_after(l1.begin());
+        TS_ASSERT_EQUALS(*li4, 5);
+        li4++; 
+        TS_ASSERT_EQUALS(*li4, 1);
+        li4 = l1.erase_after(li4);
+        TS_ASSERT_EQUALS(li4, l1.end());
+        SList<int> l2b = SList<int>(l2);
+        TS_ASSERT_EQUALS(l2.begin(), l2b.begin());
+        SList<int> le1 = SList<int>();
+        SList<int> le2 = SList<int>(le1);
+        TS_ASSERT_EQUALS(le1.begin(), le2.begin());
+        l1.clear();
+        TS_ASSERT_EQUALS(l1.begin(), l1.end());
+        le1.clear();
+        TS_ASSERT_EQUALS(le1.begin(), le1.end());
     }
 
 };

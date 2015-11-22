@@ -1,0 +1,36 @@
+Q1: Compile and run the program using gdb.  Determine the following
+values:
+
+In the call to foo5, the value of x[i-1] the first time i == 7: []
+In the call to foo22, the value of *s2 the third time *s3 == ' ': []
+In the call to foo6, the value of x[0] the first time z3 == 3 and z4 == 4: []
+
+
+
+Q2: Compile and run the program using Valgrind. For each line, if the
+execution of that line causes a memory error, give the line number and
+a description of the error, inluding any variables involved.  List
+lines in increasing order.
+
+LINE#: DESCRIPTION
+[]
+
+
+
+Q3: Compile and run the program using gprof (without optimizations).
+List the top 3 functions that the program spends its time in.
+
+1: []
+2: []
+3: []
+
+
+
+Q4: Compile and run the program using gcov.  For the lines marked with
+comments LINE-A, LINE-B, LINE-C and LINE-D, determine how many times
+each line was executed.
+
+LINE-A: []
+LINE-B: []
+LINE-C: []
+LINE-D: []
