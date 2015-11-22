@@ -1,9 +1,9 @@
 Q1: Compile and run the program using gdb.  Determine the following
 values:
 
-In the call to foo5, the value of x[i-1] the first time i == 7: []
-In the call to foo22, the value of *s2 the third time *s3 == ' ': []
-In the call to foo6, the value of x[0] the first time z3 == 3 and z4 == 4: []
+In the call to foo5, the value of x[i-1] the first time i == 7: [13]
+In the call to foo22, the value of *s2 the third time *s3 == ' ': ['a']
+In the call to foo6, the value of x[0] the first time z3 == 3 and z4 == 4: [3]
 
 
 
