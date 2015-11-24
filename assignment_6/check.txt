@@ -13,16 +13,33 @@ a description of the error, inluding any variables involved.  List
 lines in increasing order.
 
 LINE#: DESCRIPTION
-[]
+[39	Address 0x5aa6ce0 is 0 bytes inside a block of size 11 alloc'd]
+[40 	Mismatched free() / delete / delete []]
+[42	Address 0x5aa6d80 is 0 bytes inside a block of size 5 alloc'd]
+[43	Mismatched free() / delete / delete []]
+[104	Address 0x5aa6f74 is 0 bytes after a block of size 132 alloc'd, foo3()]
+[105	Invalid write of size 4, foo3()]
+[117	Address 0x5aa7054 is 0 bytes after a block of size 36 alloc'd, foo5(int)]
+[117	Address 0x5aa7054 is 0 bytes after a block of size 36 alloc'd, foo5(int)]
+[124	Invalid write of size 4, foo5(int)]
+[125	Invalid write of size 4]
+[134	Uninitialised value was created by a heap allocation, foo6()]
+[152	Conditional jump or move depends on uninitialised value(s), foo6()]
+[152	Use of uninitialised value of size 8, foo6()]
+[166	Address 0x5aa7320 is 0 bytes inside a block of size 40 alloc'd, fe1(unsigned int)]
+[168	Address 0x5aa7390 is 0 bytes inside a block of size 33 alloc'd, fe1(unsigned int)]
+[211	Mismatched free() / delete / delete [], fe2(X*)]
+[212	Mismatched free() / delete / delete [], fe2(X*)]
 
 
 
 Q3: Compile and run the program using gprof (without optimizations).
 List the top 3 functions that the program spends its time in.
 
-1: []
-2: []
-3: []
+0: [main] 
+1: [fe1]
+2: [foo6]
+3: [foo22]
 
 
 
@@ -30,7 +47,7 @@ Q4: Compile and run the program using gcov.  For the lines marked with
 comments LINE-A, LINE-B, LINE-C and LINE-D, determine how many times
 each line was executed.
 
-LINE-A: []
-LINE-B: []
-LINE-C: []
-LINE-D: []
+LINE-A: [21]
+LINE-B: [5]
+LINE-C: [0]
+LINE-D: [81]
